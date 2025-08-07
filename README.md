@@ -93,7 +93,7 @@ Made with ❤️ by:
 
 Chhavi Bhalla
 
-Your Name Prateek 
+Prateek 
 
 📄 License
 This project is licensed under the MIT License.

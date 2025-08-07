@@ -6,7 +6,8 @@ import home
 import resume
 import dashboard
 import ats
-import auth  # Import the new auth module
+import auth
+import profile # Import the new profile module
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -20,28 +21,23 @@ PAGES = {
     "Home": home,
     "Resume Maker": resume,
     "ATS Checker": ats,
+    "Profile": profile, # Add the new page
     "Dashboard": dashboard,
 }
 
 def main():
     """Main function to run the Streamlit app."""
-
-    # --- Authentication Check ---
-    # If the user is not logged in, show the auth page
     if 'user_email' not in st.session_state:
         auth.show_auth_page()
     else:
-        # If logged in, show the main app
         show_main_app()
 
 def show_main_app():
     """Renders the main application interface after login."""
-
-    # --- Navbar ---
     selected = option_menu(
         menu_title=None,
         options=list(PAGES.keys()),
-        icons=["house-door-fill", "file-earmark-person-fill", "search", "bar-chart-fill"],
+        icons=["house-door-fill", "file-earmark-person-fill", "search", "person-fill", "bar-chart-fill"], # Add new icon
         menu_icon="cast",
         default_index=0,
         orientation="horizontal",
@@ -60,7 +56,6 @@ def show_main_app():
         }
     )
 
-    # --- Sidebar for User Info and Logout ---
     with st.sidebar:
         st.title(f"Welcome,")
         st.write(st.session_state['user_email'])
@@ -69,7 +64,6 @@ def show_main_app():
             auth.sign_out()
             st.rerun()
 
-    # --- Render the selected page ---
     page_function = PAGES[selected].show
     page_function()
 
